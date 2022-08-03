@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temp
+spec:
+  selector:
+    matchLabels:
+      app: temp
+  template:
+    metadata:
+      labels:
+        app: temp
+    spec:
+      containers:
+      - name: temp
+        image: mbr3d4/conversao-temperatura:v1
+        ports:
+        - containerPort: 8080
+       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: temp-service
+spec:
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 8080
+  selector:
+    app: temp
